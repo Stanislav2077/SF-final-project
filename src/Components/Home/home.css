@@ -37,10 +37,10 @@
     margin-right: auto;
   }
   .swiper-button-next, .swiper-button-prev{
-    color:chartreuse;
+    color:#DE0052;
   }
   .swiper-pagination-bullet-active{
-    background-color:chartreuse;
+    background-color:#DE0052;
   }
   .swiper-pagination{
      position: relative; 

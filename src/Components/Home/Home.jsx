@@ -27,7 +27,7 @@ export const Home = () => {
         <SwiperSlide>
           <div>
             <p>Потерялся велесипед?
-            Не расстраивайтесь и не опускауте руки.</p>
+            Не расстраивайтесь и не опускайте руки.</p>
             <img className="ride" src={home} alt="bike" />
           </div>
         </SwiperSlide>
