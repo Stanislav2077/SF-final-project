@@ -12,6 +12,8 @@ export const Signin = ({
   message,
   handleSubmit,
   loading,
+  authorized, 
+  setAuthorized
 }) => {
   return (
     <main>
@@ -20,7 +22,7 @@ export const Signin = ({
           loading...
         </div>
       )) ||
-        (!admin && (
+        (!authorized && (
           <div style={{ marginTop: "90px" }} className="report">
            
             <form className="formPublic" onSubmit={handleSubmit}>

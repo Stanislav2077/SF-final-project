@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
-const Header = ({ admin, setAdmin }) => {
+const Header = ({ admin, setAdmin, authorized, setAuthorized }) => {
   useEffect(() => {
     const loggedInUser = localStorage.getItem("admin");
     if (loggedInUser) {
@@ -17,7 +17,8 @@ const Header = ({ admin, setAdmin }) => {
   }, []);
 
   const handleClick = () => {
-    setAdmin(!admin);
+    setAdmin(false);
+    setAuthorized(false);
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
   };
@@ -45,25 +46,26 @@ const Header = ({ admin, setAdmin }) => {
                 </Link>
               </>
             )}
-            {(!admin && (
+            {(authorized && (
               <>
                 <Link className="link" to={"/public/report"}>
                   <li className="nav-item">Сообщить о краже</li>
                 </Link>
-
-                <Link className="link" to={"/auth/sign_up"}>
+                <Link className="link" to={"/"}>
+                  <li onClick={handleClick}>Выйти</li>
+                </Link>
+              
+                
+              </>
+            )) || (
+              <>
+              <Link className="link" to={"/auth/sign_up"}>
                   <li>Регистрация</li>
                 </Link>
                 <Link className="link" to={"/auth/sign_in"}>
                   <li>Войти</li>
                 </Link>
-              </>
-            )) || (
-              <>
-                <Link className="link" to={"/"}>
-                  <li onClick={handleClick}>Выйти</li>
-                </Link>
-              </>
+                </>
             )}
           </Nav>
         </Navbar.Collapse>

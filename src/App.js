@@ -17,6 +17,8 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  console.log(localStorage.getItem('token'))
+  const [authorized, setAuthorized] = useState(localStorage.getItem('token') != null);
   const [admin, setAdmin] = useState(
     localStorage.getItem(localStorage.getItem("admin") || false)
   );
@@ -41,14 +43,16 @@ function App() {
         setLoading(false);
         setData(response.data);
         localStorage.setItem("token", response.data.data.token);
+        setAuthorized(true)
         console.log(response);
         if (response.data.data.user.approved === true) {
-          setAdmin(!admin);
+          setAdmin(true);
           localStorage.setItem("admin", true);
         }
-        setMessage("");
+        setMessage("Успешный вход");
       })
       .catch((error) => {
+        setLoading(false);
         setMessage("Вы ввели неверный логин или пароль");
       });
   };
@@ -56,7 +60,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header admin={admin} setAdmin={setAdmin} />
+        <Header admin={admin} setAdmin={setAdmin} authorized={authorized} setAuthorized={setAuthorized} />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="auth/sign_up" element={<Signup />}></Route>
@@ -75,6 +79,8 @@ function App() {
                 email={email}
                 handleSubmit={handleSubmit}
                 loading={loading}
+                authorized={authorized}
+                setAuthorized={setAuthorized}
               />
             }
           ></Route>
